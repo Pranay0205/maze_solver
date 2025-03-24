@@ -1,5 +1,7 @@
+from textwrap import fill
 from tkinter import Tk, BOTH, Canvas
 
+from Cell import Cell
 from Line import Line
 from Point import Point
 
@@ -27,27 +29,27 @@ class Window:
         self.is_running = False
         self.__root.destroy()
 
-    def draw_line(self, line, fill_color):
+    def draw_line(self, line, fill_color="black"):
         line.draw(self.canvas, fill_color)
 
 
 def main():
     print("Initializing The Maze...")
     win = Window(800, 600)
-    point_a = Point(10, 10)
-    point_b = Point(10, 90)
-    point_c = Point(45, 10)
-    point_d = Point(10, 45)
-    point_e = Point(45, 45)
 
-    line = Line(point_a, point_b)
-    win.draw_line(line, "red")
-    line2 = Line(point_a, point_c)
-    win.draw_line(line2, "red")
-    line3 = Line(point_c, point_e)
-    win.draw_line(line3, "red")
-    line4 = Line(point_e, point_d)
-    win.draw_line(line4, "red")
+    # Test two cells aligned in different rows with more distance between them
+    # First cell with no bottom wall
+    cell1 = Cell(win)
+    cell1.has_bottom_wall = False
+    cell1.draw(50, 150, 50, 150)
+
+    # Second cell with no top wall, placed in a different row
+    cell2 = Cell(win)
+    cell2.has_top_wall = False
+    cell2.draw(50, 150, 250, 350)
+
+    cell1.draw_move(cell2, False)
+
     win.wait_for_close()
 
 

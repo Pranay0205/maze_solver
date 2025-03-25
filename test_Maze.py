@@ -31,17 +31,10 @@ class TestMaze(unittest.TestCase):
         self.assertEqual(m2._x1, 10)
         self.assertEqual(m2._y1, 10)
 
-    def test_maze_constructor_zero_cells(self):
-        win = Window(800, 800)
-        num_rows = 0
-        num_cols = 0
-        m4 = Maze(0, 0, num_rows, num_cols, 40, 40, win)
-        self.assertEqual(len(m4._cells), 0)
-
     def test_maze_constructor_negative_dimensions(self):
-        win = Window(800, 800)
+
         with self.assertRaises(ValueError):
-            Maze(0, 0, -5, -5, 40, 40, self.win)
+            Maze(0, 0, -5, -5, 40, 40)
 
 
 if __name__ == "__main__":

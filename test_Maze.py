@@ -5,12 +5,11 @@ from Window import Window
 
 class TestMaze(unittest.TestCase):
 
-    win = Window(800, 800)
-
     def test_maze_create_cells(self):
+        win = Window(800, 800)
         num_rows = 10
         num_cols = 12
-        m1 = Maze(0, 0, num_rows, num_cols, 80, 80, self.win)
+        m1 = Maze(10, 10, num_rows, num_cols, 60, 60, win)
         self.assertEqual(
             len(m1._cells),
             num_cols,
@@ -21,9 +20,10 @@ class TestMaze(unittest.TestCase):
         )
 
     def test_maze_constructor_valid_input(self):
+        win = Window(800, 800)
         num_rows = 5
         num_cols = 5
-        m2 = Maze(10, 10, num_rows, num_cols, 50, 50, self.win)
+        m2 = Maze(10, 10, num_rows, num_cols, 50, 50, win)
         self.assertEqual(m2.num_rows, num_rows)
         self.assertEqual(m2.num_cols, num_cols)
         self.assertEqual(m2.cell_size_x, 50)
@@ -32,12 +32,14 @@ class TestMaze(unittest.TestCase):
         self.assertEqual(m2._y1, 10)
 
     def test_maze_constructor_zero_cells(self):
+        win = Window(800, 800)
         num_rows = 0
         num_cols = 0
-        m4 = Maze(0, 0, num_rows, num_cols, 40, 40, self.win)
+        m4 = Maze(0, 0, num_rows, num_cols, 40, 40, win)
         self.assertEqual(len(m4._cells), 0)
 
     def test_maze_constructor_negative_dimensions(self):
+        win = Window(800, 800)
         with self.assertRaises(ValueError):
             Maze(0, 0, -5, -5, 40, 40, self.win)
 

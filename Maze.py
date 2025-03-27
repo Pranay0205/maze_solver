@@ -27,6 +27,7 @@ class Maze:
         self._reset_cells_visited()
 
     def _create_cells(self):
+        print("Generating The Maze...")
         # Create a 2D array of cells
         self._cells = []
         for i in range(self.num_cols):
@@ -58,6 +59,7 @@ class Maze:
         time.sleep(0.01)
 
     def _break_entrance_and_exit(self):
+        print("Creating entrance and exits...")
         # Remove the top wall of the first cell (entrance)
         self._cells[0][0].has_top_wall = False
         self._draw_cell(0, 0)
@@ -67,7 +69,9 @@ class Maze:
                                        1].has_bottom_wall = False
         self._draw_cell(self.num_cols - 1,  self.num_rows - 1)
 
-    def _break_walls_r(self, i, j):
+    def _break_walls_r(self, i, j, first_call=True):
+        if first_call:
+            print("Carving path through maze...")
 
         self._cells[i][j].visited = True
 
@@ -108,7 +112,7 @@ class Maze:
             self._draw_cell(i, j)
             self._draw_cell(next_i, next_j)
 
-            self._break_walls_r(next_i, next_j)
+            self._break_walls_r(next_i, next_j, False)
 
     def _reset_cells_visited(self):
         for col in self._cells:
@@ -116,6 +120,7 @@ class Maze:
                 cell.visited = False
 
     def solve_dfs(self):
+        print("Finding path through maze...")
         return self._solve_r(0, 0)
 
     def _solve_r(self, i, j):

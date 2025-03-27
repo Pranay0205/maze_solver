@@ -54,7 +54,6 @@ def calculate_maze_parameters(window_width, window_height, num_rows, num_cols, m
 
 
 def main():
-    print("Initializing The Maze...")
     window_width = 1280
     window_height = 720
     num_rows = 15  # Increased from 10

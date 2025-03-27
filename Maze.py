@@ -49,11 +49,13 @@ class Maze:
         self._cells[i][j].draw(x1, x2, y1, y2)
         self._animate()
 
-    def _animate(self):
+    def _animate(self, solve=False):
         if self._win is None:
             return
         self._win.redraw()
-        time.sleep(0.05)
+        if solve:
+            time.sleep(0.05)
+        time.sleep(0.01)
 
     def _break_entrance_and_exit(self):
         # Remove the top wall of the first cell (entrance)
@@ -112,3 +114,38 @@ class Maze:
         for col in self._cells:
             for cell in col:
                 cell.visited = False
+
+    def solve_dfs(self):
+        return self._solve_r(0, 0)
+
+    def _solve_r(self, i, j):
+
+        if i == self.num_cols - 1 and j == self.num_rows - 1:
+            return True
+
+        self._animate(True)
+        self._cells[i][j].visited = True
+
+        possible_directions = []
+
+        if j > 0 and not self._cells[i][j-1].visited and not self._cells[i][j].has_top_wall:
+            possible_directions.append((i, j - 1, "up"))
+
+        if i < self.num_cols - 1 and not self._cells[i + 1][j].visited and not self._cells[i][j].has_right_wall:
+            possible_directions.append((i + 1, j, "right"))
+
+        if j < self.num_rows - 1 and not self._cells[i][j + 1].visited and not self._cells[i][j].has_bottom_wall:
+            possible_directions.append((i, j + 1, "down"))
+
+        if i > 0 and not self._cells[i - 1][j].visited and not self._cells[i][j].has_left_wall:
+            possible_directions.append((i - 1, j, "left"))
+
+        for next_i, next_j, direction in possible_directions:
+            self._cells[i][j].draw_move(self._cells[next_i][next_j])
+
+            if self._solve_r(next_i, next_j):
+                return True
+
+            self._cells[i][j].draw_move(self._cells[next_i][next_j], True)
+
+        return False

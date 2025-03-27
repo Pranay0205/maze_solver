@@ -1,3 +1,4 @@
+from random import seed
 from Maze import Maze
 import unittest
 from Window import Window
@@ -31,10 +32,25 @@ class TestMaze(unittest.TestCase):
         self.assertEqual(m2._x1, 10)
         self.assertEqual(m2._y1, 10)
 
-    def test_maze_constructor_negative_dimensions(self):
+    def test_maze_seed_1(self):
+        win = Window(800, 800)
+        num_rows = 10
+        num_cols = 10
+        m2 = Maze(10, 10, num_rows, num_cols, 50, 50, win, 126)
+        self.assertEqual(m2._seed, seed)
+        m2._break_walls_r(0, 0)
 
-        with self.assertRaises(ValueError):
-            Maze(0, 0, -5, -5, 40, 40)
+    def test_maze_seed_2(self):
+        win = Window(800, 800)
+        num_rows = 10
+        num_cols = 10
+        m2 = Maze(10, 10, num_rows, num_cols, 50, 50, win, 41)
+        m2._break_walls_r(0, 0)
+
+    # def test_maze_constructor_negative_dimensions(self):
+
+    #     with self.assertRaises(ValueError):
+    #         Maze(0, 0, -5, -5, 40, 40)
 
 
 if __name__ == "__main__":

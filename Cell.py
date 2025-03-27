@@ -14,6 +14,7 @@ class Cell:
         self._y1 = None
         self._y2 = None
         self._win = win
+        self.visited = False
 
     def draw(self, x1, x2, y1, y2):
         self._x1 = x1
@@ -71,3 +72,12 @@ class Cell:
         line = Line(start_point, end_point)
 
         self._win.draw_line(line, line_color)
+
+    # def __repr__(self):
+    #     visited_status = "✔" if self.visited else "✘"
+    #     return (f"Cell("
+    #             f"x1={self._x1}, "
+    #             f"x2={self._x2}, "
+    #             f"y1={self._y1}, "
+    #             f"y2={self._y2}, "
+    #             f"visited={visited_status})\n")

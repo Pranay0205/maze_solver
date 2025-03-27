@@ -20,37 +20,39 @@ class TestMaze(unittest.TestCase):
             num_rows,
         )
 
-    def test_maze_constructor_valid_input(self):
-        win = Window(800, 800)
-        num_rows = 5
-        num_cols = 5
-        m2 = Maze(10, 10, num_rows, num_cols, 50, 50, win)
-        self.assertEqual(m2.num_rows, num_rows)
-        self.assertEqual(m2.num_cols, num_cols)
-        self.assertEqual(m2.cell_size_x, 50)
-        self.assertEqual(m2.cell_size_y, 50)
-        self.assertEqual(m2._x1, 10)
-        self.assertEqual(m2._y1, 10)
+    def test_maze_break_entrance_and_exit(self):
+        num_cols = 12
+        num_rows = 10
+        m1 = Maze(0, 0, num_rows, num_cols, 10, 10)
+        self.assertEqual(
+            m1._cells[0][0].has_top_wall,
+            False,
+        )
+        self.assertEqual(
+            m1._cells[num_cols - 1][num_rows - 1].has_bottom_wall,
+            False,
+        )
 
     def test_maze_seed_1(self):
         win = Window(800, 800)
         num_rows = 10
         num_cols = 10
-        m2 = Maze(10, 10, num_rows, num_cols, 50, 50, win, 126)
-        self.assertEqual(m2._seed, seed)
-        m2._break_walls_r(0, 0)
+        m2 = Maze(10, 10, num_rows, num_cols, 50, 50, win, 5)
 
-    def test_maze_seed_2(self):
-        win = Window(800, 800)
+    def test_maze_constructor_negative_dimensions(self):
+        with self.assertRaises(ValueError):
+            Maze(0, 0, -5, -5, 40, 40)
+
+    def test_maze_reset_cells_visited(self):
+        num_cols = 12
         num_rows = 10
-        num_cols = 10
-        m2 = Maze(10, 10, num_rows, num_cols, 50, 50, win, 41)
-        m2._break_walls_r(0, 0)
-
-    # def test_maze_constructor_negative_dimensions(self):
-
-    #     with self.assertRaises(ValueError):
-    #         Maze(0, 0, -5, -5, 40, 40)
+        m1 = Maze(0, 0, num_rows, num_cols, 10, 10)
+        for col in m1._cells:
+            for cell in col:
+                self.assertEqual(
+                    cell.visited,
+                    False,
+                )
 
 
 if __name__ == "__main__":

@@ -17,9 +17,14 @@ class Maze:
         self.cell_size_y = cell_size_y
         self._win = win
         self._cells = []
+        self._seed = seed
+        if self._seed is not None:
+            random.seed(self._seed)
+
         self._create_cells()
         self._break_entrance_and_exit()
-        self._seed = seed
+        self._break_walls_r(0, 0)
+        self._reset_cells_visited()
 
     def _create_cells(self):
         # Create a 2D array of cells
@@ -62,9 +67,6 @@ class Maze:
 
     def _break_walls_r(self, i, j):
 
-        if self._seed is not None:
-            random.seed(self._seed)
-
         self._cells[i][j].visited = True
 
         while (True):
@@ -105,3 +107,8 @@ class Maze:
             self._draw_cell(next_i, next_j)
 
             self._break_walls_r(next_i, next_j)
+
+    def _reset_cells_visited(self):
+        for col in self._cells:
+            for cell in col:
+                cell.visited = False

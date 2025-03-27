@@ -37,19 +37,6 @@ def main():
     print("Initializing The Maze...")
     win = Window(800, 600)
 
-    # Test two cells aligned in different rows with more distance between them
-    # First cell with no bottom wall
-    cell1 = Cell(win)
-    cell1.has_bottom_wall = False
-    cell1.draw(50, 150, 50, 150)
-
-    # Second cell with no top wall, placed in a different row
-    cell2 = Cell(win)
-    cell2.has_top_wall = False
-    cell2.draw(50, 150, 250, 350)
-
-    cell1.draw_move(cell2, False)
-
     win.wait_for_close()
 
 

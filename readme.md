@@ -14,7 +14,7 @@ This project is a Python-based application that generates and solves mazes using
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/yourusername/maze_solver.git
+   git clone https://github.com/Pranay0205/maze_solver.git
    ```
 
 2. **Navigate to the Project Directory**:

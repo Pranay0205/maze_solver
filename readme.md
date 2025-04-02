@@ -32,7 +32,7 @@ This project is a Python-based application that generates and solves mazes using
 
 1. **Run the Application**:
    ```bash
-   python main.py
+   python window.py
    ```
 
 2. **Interact with the GUI**:
